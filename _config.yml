@@ -23,8 +23,7 @@ title: hoppi's blog!                   # the main title
 
 tagline: hi I'm hoppi   # it will display as the sub-title
 
-description: >-                        # used by seo meta and the atom feed
-  Life is a journey that beats me who lacks ability.
+description: Life is a journey that beats me who lacks ability.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: 'https://h0pp1.github.io'
@@ -42,7 +41,7 @@ social:
   email: minjas0507@gmail.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username      # change to your twitter homepage
+#    - https://twitter.com/username      # change to your twitter homepage
     - https://github.com/username       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
@@ -81,7 +80,7 @@ theme_mode:   # [light|dark]
 img_cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: assets/img/avatar/pikachu.png
 
 # boolean type, the global switch for ToC in posts.
 toc: true
