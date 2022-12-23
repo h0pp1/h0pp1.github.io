@@ -19,7 +19,7 @@ timezone: Asia/Seoul
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Hoppi's blog.                   # the main title
+title: Hoppi                   # the main title
 
 tagline: Life is a journey that beats me who lacks ability.   # it will display as the sub-title
 
@@ -31,8 +31,11 @@ url: 'https://h0pp1.github.io'
 github:
   username: h0pp1            # change to your github username
 
-twitter:
-  username: twitter_username            # change to your twitter username
+# twitter:
+#   username: twitter_username            # change to your twitter username
+
+instagram:
+  username: minja__2
 
 social:
   # Change to your full name.
@@ -41,8 +44,9 @@ social:
   email: minjas0507@gmail.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-#    - https://twitter.com/username      # change to your twitter homepage
-    - https://github.com/username       # change to your github homepage
+    # - https://twitter.com/username      # change to your twitter homepage
+    - https://github.com/h0pp1       # change to your github homepage
+    - https://www.instagram.com/username
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
@@ -197,3 +201,11 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+
+markdown: kramdown
+kramdown:
+    highlighter: rouge
+    syntax_highlighter_opts:
+        block:
+            line_numbers: true
