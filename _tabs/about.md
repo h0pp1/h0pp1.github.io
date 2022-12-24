@@ -5,4 +5,7 @@ order: 4
 ---
 
 Hi I'm hoppi, interested in web security.  
-i'm trying to be interested in mobile & reversing.
+i'm trying to be interested in mobile & reversing.  
+
+if you want contact, bottom of sidebar  
+<center>↙↙↙</center> 

