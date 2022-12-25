@@ -8,10 +8,10 @@ tags: [ssrf, php]
 I found this interesting SSRF trick in a tweet.
 
 This is a challenge for SSRF and the PHP code like this.  
-The code checks url parameter whether scheme and host& path are correct or not, through `substr` function.  
+The code checks `url` parameter whether scheme and host& path are correct or not, through `substr` function.  
 ![code](../../../assets/img/2022-12-24/2022-12-24-code.jpeg){: w="600" h="300" }
 <br><br/>
-As shown in below, we can not change red part of url.  
+As shown in below, we can not change red parts of url.  
 We need to trigger SSRF by changing only 3 characters. So... How??
 
 - <span style="color:red">https</span>://<span style="color:red">test.octagon.net/1.php</span>  
