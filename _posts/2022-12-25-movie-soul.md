@@ -1,5 +1,5 @@
 ---
-title: '[Journal] 불꽃을 찾는 것은 소울의 목적이 아니야'
+title: '[Journal] 불꽃은 목적이 아니야'
 author: hoppi
 date: 2022-12-25 02:44:00 + 0000
 categories: [journal]
