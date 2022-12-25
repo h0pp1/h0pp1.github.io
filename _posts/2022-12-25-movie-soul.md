@@ -2,7 +2,7 @@
 title: '[Journal] 불꽃은 목적이 아니야'
 author: hoppi
 date: 2022-12-25 02:44:00 + 0000
-categories: [journal]
+categories: [Journal]
 tags: []
 ---
 디즈니 플러스에서 별 기대 없이 이 영화를 틀었다.  
