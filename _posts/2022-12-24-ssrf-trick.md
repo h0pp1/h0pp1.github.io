@@ -18,7 +18,7 @@ We need to trigger SSRF by changing only 3 characters. So... How??
   
 <br>  
 As far as I know, some letters after the `@` character is treated as a hostname. And `0` means `localhost`.  
-But I didn't not expected like that.
+But I didn't expected like that.
 
 - https<span style="color:GREEN">@0/</span>test.octagon.net/1.php/../../flag
 
