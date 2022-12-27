@@ -38,9 +38,9 @@
 
   /* Sidebar */
   --sidebar-bg: radial-gradient(circle, #242424 0%, #1d1f27 100%);
-  --sidebar-muted-color: #6d6c6b;
-  --sidebar-active-color: rgb(85, 163, 171);
-  --nav-cursor-color: rgb(85, 163, 171);
+  --sidebar-muted-color: #242424;
+  --sidebar-active-color: rgb(244, 121, 51);
+  --nav-cursor-color: rgb(244, 121, 51);
   --sidebar-btn-bg: rgb(117, 116, 116, 0.2);
 
   /* Topbar */
@@ -67,7 +67,7 @@
   --tb-odd-bg: rgba(42, 47, 53, 0.52); /* odd rows of the posts' table */
   --tb-even-bg: rgb(31, 31, 34); /* even rows of the posts' table */
   --tb-border-color: var(--tb-odd-bg);
-  --footnote-target-bg: rgb(63, 81, 181);
+  --footnote-target-bg: rgb(85, 163, 171);
   --btn-share-color: #6c757d;
   --btn-share-hover-color: #bfc1ca;
   --relate-post-date: var(--text-muted-color);

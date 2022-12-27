@@ -171,9 +171,9 @@ h1 + .post-meta {
     color: var(--link-color);
 
     &:hover {
-      background: #2a408e;
+      background: rgb(162, 215, 213);;
       color: #ffffff;
-      border-color: #2a408e;
+      border-color: rgb(162, 215, 213);;
     }
 
     &.disabled {
