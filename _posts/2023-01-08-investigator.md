@@ -81,7 +81,7 @@ shared/0/을 보니 WhatsApp 부분만 용량이 달랐다.
 WhatsApp의 Databases 디렉토리에서 `msgstore.db.crypt14` 이라는 파일을 발견할 수 있었고 <u>구글링해보니 메시지들을 저장하는 db임을 알 수 있었다.</u> 하지만 crypt14이라는 확장자가 붙어있어서 이 또한 암호화되어있음을 알았다.  
 <br/>
 
-이를 풀기위해서 key를 알아야했고 key 파일은 `apps/com.whatsapp/files/key`에 존재한다. 이 db파일을 복호화를 하는데 사용한 툴은 [이곳](https://github.com/ElDavoo/WhatsApp-Crypt14-Crypt15-Decrypter)을 이용했다. 추출된 msgstore.db의 `message` 테이블에서 플레그를 얻을 수 있었다.  
+이를 풀기위해서 key를 알아야했고 key 파일은 `apps/com.whatsapp/files/key`에 존재한다. 이 db파일을 복호화를 하는데 사용한 툴은 [이곳](https://github.com/ElDavoo/WhatsApp-Crypt14-Crypt15-Decrypter)을 이용했다. 추출된 `msgstore.db`의 `message` 테이블에서 플레그를 얻을 수 있었다.  
 ![flag](../../../assets/img/2023-01-08/2023-01-08-flag.png){: w="600" h="300" }  
 <br/>
 
