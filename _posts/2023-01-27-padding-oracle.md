@@ -5,7 +5,7 @@ date: 2023-01-27 23:36:00 + 0000
 categories: [Crypto]
 tags: [crypto, padding_oracle, dreamhack]
 ---
-카뱅 면접 볼 때 harry가 내 이전 블로그에 있던 드림핵 문제였던 [Padding Oracle](https://dreamhack.io/wargame/challenges/127/) 풀이를 보고 `패딩 오라클이 뭔가요?` 라고 질문 했는데 답변하지 못했다. 질문 폭격을 맞는 상황인 것도 있었지만 정말로 내가 풀었는데 정확하게 어떤 의미인지 기억을 못해서 답변을 못하는 어처구니 없는 상황이 발생한 것이다. 그래서 다시 봐야지를 오랫동안 실천하지 못(?)하다가 지금 적어본다.  
+카뱅 면접 볼 때 harry가 내 이전 블로그에서 드림핵 문제였던 [Padding Oracle](https://dreamhack.io/wargame/challenges/127/) 풀이를 보고 `패딩 오라클이 뭔가요?` 라고 질문 했는데 답변하지 못했다. 질문 폭격을 맞는 상황인 것도 있었지만 정말로 내가 풀었는데 정확하게 어떤 의미인지 기억을 못해서 답변을 못하는 어처구니 없는 상황이 발생한 것이다. 그래서 다시 봐야지를 오랫동안 실천하지 못(?)하다가 지금 적어본다.  
 
 
 # Padding Oracle Attack이란?
@@ -54,5 +54,6 @@ CBC의 특성을 살펴보면 암호화된 이전 블록과 평문 블록을 `XO
 내가 이해가 안된 부분을 위주로 글로 적은 것이라서 부분부분 이해가 안가는 부분이 있을 수 있다. 레퍼런스에 있는 글을 참고하면 더 자세히 알 수 있을 것이다.  
 
 # Reference
+***
 - [https://hacksms.tistory.com/50](https://hacksms.tistory.com/50)
 
