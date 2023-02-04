@@ -189,7 +189,7 @@ router.get("/letters", (req, res) => {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <base href="{{cdn}}" />
+    <base href="{% raw %}{{cdn}}{% endraw %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -236,7 +236,7 @@ sub vcl_hash {
 {: file='cache.vcl'}
 <br/>
 
-아래와 같이 `X-Forwarded-Host` 헤더를 추가하여 cdn의 url을 조작할 수 있었다.  
+아래와 같이 `X-Forwarded-Host`헤더를 추가하여 cdn의 url을 조작할 수 있었다. 그리고 `Host`헤더 같은 경우, 우리는 bot의 요청을 poisoning 해야하기 때문에 로컬 호스트로 변조가 반드시 필요하다.  
 ![host](../../../assets/img/2023-02-03/host.png){: w="800" h="400" }  
 <br/>
 
