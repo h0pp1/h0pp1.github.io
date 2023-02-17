@@ -1,8 +1,8 @@
 ---
-title: '[Web] Time based SQLi with self join'
+title: '[Tip] Time based SQLi with self join'
 author: hoppi
 date: 2023-02-09 20:58:00 + 0000
-categories: [Web]
+categories: [Tip]
 tags: [web, blind_sqli, time_based_sqli, mysql]
 math: true
 ---
