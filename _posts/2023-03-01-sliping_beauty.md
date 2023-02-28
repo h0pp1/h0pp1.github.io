@@ -52,7 +52,7 @@ highlight_file(__FILE__);
 ***
 다음과 같은 시나리오를 구성할 수 있습니다.  
 
-1. 직렬화된 데이터를 포함한 `aasdasdsd/../../../../../../../../var/lib/php/sessions/sess_`파일을 압축하여 업로드 
+1. 직렬화된 세션 데이터를 포함한 `aasdasdsd/../../../../../../../../var/lib/php/sessions/sess_`파일을 압축하여 업로드합니다.
 2. `sess_` 뒤에 랜덤한 숫자가 붙기 때문에 이 숫자가 `PHPSESSID`가 됩니다.
 3. 이 랜덤한 숫자로 쿠키의 `PHPSESSID` 값을 바꿔줍니다.
 <br/>
