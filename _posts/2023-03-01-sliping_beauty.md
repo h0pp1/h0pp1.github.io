@@ -1,7 +1,7 @@
 ---
 title: '[Webhacking.kr] sliping beauty'
 author: hoppi
-date: 2023-03-01 01:10:00 + 0000
+date: 2023-03-01 01:43:00 + 0000
 categories: [Web]
 tags: [web, zip_slip, php]
 ---
@@ -44,7 +44,7 @@ highlight_file(__FILE__);
 
 ## PHP Session Overwrite
 ***
-위의 `zip slip`을 이용하면 임의의 위치에 파일을 업로드할 수 있으므로 원하는 세션을 만들어낼 수 있습니다. `PHP`는 직렬화된 포멧으로 `/var/lib/php/sessions/`에 세션파일을 저장합니다. 그리고 그 파일의 포멧은 `session_[PHPSESSID]`와 같습니다. 세션파일에 저장하는 값은 아래와 같이 간단하게 쉘에서 확인할 수 있습니다. `session_encode()`를 찍어보면 직렬화된 세션 데이터를 얻을 수 있습니다. (여기서 `session_start()`는 가장 위에 선언해줘야합니다. 코드를 몇개 적고 중간에 적어주게 되면 에러가 발생합니다🙃)  
+위의 `zip slip`을 이용하면 임의의 위치에 파일을 업로드할 수 있으므로 원하는 세션을 만들어낼 수 있습니다. `PHP`는 직렬화된 포멧으로 `/var/lib/php/sessions/` 디렉토리에 세션파일을 저장합니다. 그리고 그 파일의 포멧은 `session_[PHPSESSID]`와 같습니다. 세션파일에 저장하는 값은 아래와 같이 간단하게 쉘에서 확인할 수 있습니다. `session_encode()`를 통해서 직렬화된 세션 데이터를 얻을 수 있습니다. (여기서 `session_start()`는 가장 위에 선언해줘야합니다. 코드를 몇개 적고 중간에 적어주게 되면 에러가 발생합니다🙃)  
 ![session](../../../assets/img/2023-03-01/session.png){: w="700" h="350" }  
 <br/>
 
