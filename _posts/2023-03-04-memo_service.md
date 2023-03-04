@@ -1,7 +1,7 @@
 ---
 title: '[Webhacking.kr] MEMO Service'
 author: hoppi
-date: 2023-03-01 21:49:00 + 0000
+date: 2023-03-04 21:49:00 + 0000
 categories: [Web]
 tags: [web, format_string, crlf_injection, xss, nginx]
 ---
