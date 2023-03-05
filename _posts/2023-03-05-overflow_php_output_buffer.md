@@ -37,12 +37,12 @@ and we'll do all the hard work!</p>
 {: file='index.php'}
 <br>
 
-위 코드를 보면 GET 파라미터로 사용자의 입력 값을 전달할 수 있죠. 6 번째 줄에서 전달받은 `xss`의 값을 `htmlspecialchars()`를 통해서 XSS에 쓰이는 문자를 거르고 있습니다. 하지만 23 번째 줄을보면 `$path`도 `sanitize`를 수행하지만 다른 변수에 값을 저장하지 않고 단순히 echo만 합니다. 따라서 코드 마지막 줄에도 그대로 들어가기 때문에 `XSS`가 될 것처럼 보입니다. 하지만 코드를 쭉 보신분들을 아시겠지만 16 번째 줄에서 `CSP`를 통해 `default-src` 지시문을 `none`으로 설정하고 있습니다. 아무것도 허용하지 않겠다는 뜻이죠. 그럼 `XSS`가 트리거되지 않는게 정상이지만 아래 사진처럼 이를 우회하고 트리거할 수 있습니다. 어떻게 가능할까요?🤔  
+위 코드를 보면 GET 파라미터로 사용자의 입력 값을 전달할 수 있죠. 6 번째 줄에서 전달받은 `xss` 파라미터의 값을 `htmlspecialchars()`를 통해서 `XSS`에 쓰이는 문자를 거르고 있습니다. 하지만 13 번째 줄을 보면 `$path`도 `sanitize`를 수행하지만 다른 변수에 값을 저장하지 않고 단순히 `echo`만 합니다. 따라서 코드 마지막 줄에도 그대로 들어가기 때문에 `XSS`가 될 것처럼 보입니다. 하지만 코드를 쭉 보신분들을 아시겠지만 16 번째 줄에서 `CSP`를 통해 `default-src` 지시문을 `none`으로 설정하고 있습니다. 아무것도 허용하지 않겠다는 뜻이죠. 그럼 `XSS`가 트리거되지 않는게 정상이지만 아래 사진처럼 이를 우회하고 트리거할 수 있습니다. 어떻게 가능할까요?🤔  
 ![bypass](../../../assets/img/2023-03-06/bypass.png){: w="600" h="300" }  
 <br/>
 
 
-PHP에서는 `output buffer`라는 것을 사용합니다. 사용자가 지정하지 않으면 디폴트 값을 4096 바이트로 설정되어있습니다. php 공식문서에서 `output_buffering`에 대한 설명은 아래와 같습니다.  
+PHP 에서는 `output buffer`라는 것을 사용합니다. 사용자가 지정하지 않으면 디폴트 값을 4096 바이트로 설정되어있습니다. PHP 공식문서에서 `output_buffering`에 대한 설명은 아래와 같습니다.  
 > output_buffering bool/int : You can enable output buffering for all files by setting this directive to 'On'. If you wish to limit the size of the buffer to a certain size - you can use a maximum number of bytes instead of 'On', as a value for this directive (e.g., output_buffering=4096). This directive is always Off in PHP-CLI.
 {: .prompt-info }
 <br/>
@@ -51,7 +51,7 @@ PHP에서는 `output buffer`라는 것을 사용합니다. 사용자가 지정�
 ![warning](../../../assets/img/2023-03-06/warning.png){: w="700" h="350" }  
 <br/>
 
-눈치 빠르신 분들은 `debug 파라미터가 괜히 있지는 않을거같은데...` 라는 생각을 하셨을겁니다. while 문을 돌면서 `../`문자열이 없어질 때까지 `[DEBUG] Removed '../'. New path is`와 우리가 입력한 `sanitize`된 `$path`를 반복적으로 보여주고 있습니다. 따라서 `$path`에 적절한 값만 주면 `output buffer`가 금방찰 수 있게됩니다. 아래와 같은 페이로드를 이용할 수 있습니다.  
+코드를 보면서 눈치 빠르신 분들은 `debug 파라미터가 괜히 있지는 않을거같은데...` 라는 생각을 하셨을겁니다. while 문을 돌면서 `../`문자열이 없어질 때까지 `[DEBUG] Removed '../'. New path is`와 우리가 입력한 `sanitize`된 `$path`를 반복적으로 보여주고 있습니다. 따라서 `$path`에 적절한 값만 주면 `output buffer`가 금방찰 수 있게됩니다. 아래와 같은 페이로드를 이용할 수 있습니다.  
 ```plaintext
 ................................../////////////////""""""""""""""""""""""""""<svg/onload=alert`hahahoho`>
 ```
