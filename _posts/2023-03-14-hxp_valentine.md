@@ -90,7 +90,7 @@ app.get('/:template', function(req, res) {
 {: file='app.js'}
 <br/>
 
-하지만 이 문제의 경우 `3.1.8` 버전이고 `bodyParser.urlencoded`의 `extended`가 `false`여서 객체의 객체를 파싱하지 못합니다. 하지만 해당 취약점의 글을 자세히 보면 `ejs` 내부에서 쓰는 옵션을 쿼리 스트링형식으로 전달해주면 그것을 덮어씌울 수 있게됩니다. 따라서 `delimeter`를 커스텀하여 `<%= name %>`를 우회할 수 있게 됩니다.  
+하지만 이 문제의 경우 `3.1.8` 버전이고 ~~bodyParser.urlencoded의 extended가 false여서 객체의 객체를 파싱하지 못합니다.~~ 하지만 해당 취약점의 글을 자세히 보면 `ejs` 내부에서 쓰는 옵션을 쿼리 스트링형식으로 전달해주면 그것을 덮어씌울 수 있게됩니다. 따라서 `delimeter`를 커스텀하여 `<%= name %>`를 우회할 수 있게 됩니다.  
 ```javascript
 ...
 
@@ -151,6 +151,11 @@ else :
 
 ```
 {: file='exploit.py'}
+<br/>
+
+# 추가
+***
+본문에 취소선을 한 이유는 `express.urlencoded`와 혼동했기 때문입니다. 결론은 `bodyParser.urlencoded`는 아무런 영향이 없습니다. 따라서 `3.1.8`버전의 `0-day exploit`이 가능할 수 있지만 이 역시 `캐시` 때문에 되지 않을겁니다. 아무튼 드림핵에 [ejs@3.1.8](https://dreamhack.io/wargame/challenges/675/)과 [Note](https://dreamhack.io/wargame/challenges/644/) 문제가 있는데 이 문제와 같이 보면 이해하는데 아주 도움이 될 것 같습니다.
 <br/>
 
 # Reference
