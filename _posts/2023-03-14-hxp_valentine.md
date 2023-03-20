@@ -1,5 +1,5 @@
 ---
-title: '[CTF] [hxp CTF 2022] valentine'
+title: '[CTF][hxp CTF 2022] valentine'
 author: hoppi
 date: 2023-03-14 22:01:00 + 0000
 categories: [CTF]
