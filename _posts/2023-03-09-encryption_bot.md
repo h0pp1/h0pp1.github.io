@@ -3,7 +3,7 @@ title: '[Hackthebox] Encryption Bot'
 author: hoppi
 date: 2023-03-09 18:30:00 + 0000
 categories: [Reversing]
-tags: [reversing]
+tags: [hackthebox, reversing]
 math: true
 ---
 
