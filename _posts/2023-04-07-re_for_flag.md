@@ -41,7 +41,6 @@ Or when you need to extract string or key something in text, but What if key len
 res = sess.get(f"{URL}/key")
 m = search(r"secret key is (?P<KEY>.*?) haha",res.text)
 SOME_KEY = m.group("KEY") ## a0f3b49d7e20bc6a64c8e0c3d1537e5d5c5f6ca5c6e50948d2925d6dbcafc7e8d9c36d7b24fc84b01c7b8f92334ea712a86d0f613a42ec53fbf3c19d7205557
-
 ```
 {: file="example2.py"}
 <br/>
