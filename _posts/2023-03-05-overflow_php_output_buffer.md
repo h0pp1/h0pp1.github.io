@@ -4,6 +4,7 @@ author: hoppi
 date: 2023-03-06 00:55:00 + 0000
 categories: [Web]
 tags: [web, php_output_buffer, xss]
+published: false
 ---
 
 제가 즐겨보는 트윗인 `INTIGRITI`의 `spot the vulnerability` 챌린지에서 본 재밌는 내용을 적어보려고 합니다. 일단 code snippet은 아래와 같습니다.  
