@@ -3,7 +3,7 @@ title: 'Next.js SSRF'
 author: hoppi
 date: 2025-04-13 15:00:00 + 0900
 categories: [Web]
-tags: [web, next.js, ssrf cve-2024-34351]
+tags: [web, next.js, ssrf, cve-2024-34351]
 ---
 
 최근에 Next.js에서 발생하는 SSRF 케이스를 이곳저곳에서 접하였습니다. 한 가지는 잘못된 설정이고, 다른 케이스는 CVE 케이스입니다. 먼저 잘못된 설정에 의해서 발생하는 SSRF 케이스에 대해서 설명하겠습니다.
