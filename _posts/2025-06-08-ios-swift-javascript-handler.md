@@ -9,10 +9,11 @@ tags: [mobile, iOS, Swift]
 
 # JavaScript Handler 사용하는 부분 찾기
 보통 iOS Swift에서 JavaScript와 통신하기 위해서는 `WKWebView`를 사용하고, JavaScript와 Swift 사이의 인터페이스를 설정하려면 `WKScriptMessageHandler`를 활용합니다. 안드로이드처럼 함수를 호출하는 형태가 아니라, 메시지를 주고 받는 식으로 웹과 앱이 상호작용합니다. 안드로이드와 간단하게 비교하면 아래와 같습니다.
-| Android (WebView)              | iOS (WKWebView)                                  |
+
+| **Android (WebView)**              | **iOS (WKWebView)**                                 |
 |-------------------------------|--------------------------------------------------|
-| `@JavascriptInterface`         | `WKScriptMessageHandler` 프로토콜 구현           |
-| `webView.addJavascriptInterface(...)` | `userContentController.add(_:name:)`      |
+| @JavascriptInterface         | WKScriptMessageHandler 프로토콜 구현           |
+| `webView.addJavascriptInterface()` | `userContentController.add(_:name:)`      |
 |  `InterfaceName.FunctionName()`        | `window.webkit.messageHandlers.ListenerName.postMessage(...)` |
 
 
