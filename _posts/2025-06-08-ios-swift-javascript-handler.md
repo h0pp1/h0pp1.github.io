@@ -49,4 +49,4 @@ func userContentController(_ userContentController: WKUserContentController,
     print("Received Message: \(message.body)")
 }
 ```
-경우에 따라 `webView.evaluateJavaScript()`를 이용해 JavaScript 코드를 실행할 때, 사용자 입력값을 제대로 검증하지 않으면 XSS가 발생할 수도 있을 것 같습니다. 바이너리 대신 Swift 코드를 직접 보게 되는 경우는 많지 않을 것 같지만, 기록용으로 남겨둡니다.
+경우에 따라 `webView.evaluateJavaScript()`를 이용해 JavaScript 코드를 실행할 때, 사용자 입력값을 제대로 검증하지 않으면 XSS가 발생할 수도 있을 것 같습니다. 바이너리 대신 Swift 코드를 직접 보게 되는 경우는 그리 많지는 않을 것 같지만, 기록용으로 남겨둡니다.
